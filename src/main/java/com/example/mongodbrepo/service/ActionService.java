@@ -25,4 +25,8 @@ public interface ActionService {
     void findBookModelByModel_OneToManyExample();
 
     void findAllManufacturers();
+
+    void findAndRemovePhoneBySizeGreaterThan_MongoTemplate();
+
+    void findAllBooks_MongoOperations();
 }

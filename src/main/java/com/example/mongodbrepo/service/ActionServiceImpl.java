@@ -3,6 +3,7 @@ package com.example.mongodbrepo.service;
 import com.example.mongodbrepo.model.*;
 import com.example.mongodbrepo.repositories.*;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -23,8 +24,9 @@ public class ActionServiceImpl implements ActionService {
     private final PhoneRepository phoneRepository;
     private final BookRepository bookRepository;
     private final BookModelRepository bookModelRepository;
+    private final MongoOperations mongoOperations;
 
-    public ActionServiceImpl(MongoTemplate mongoTemplate, AuthorRepository authorRepository, UserRepository userRepository, CarRepository carRepository, ManufacturerRepository manufacturerRepository, PhoneRepository phoneRepository, BookRepository bookRepository, BookModelRepository bookModelRepository) {
+    public ActionServiceImpl(MongoTemplate mongoTemplate, AuthorRepository authorRepository, UserRepository userRepository, CarRepository carRepository, ManufacturerRepository manufacturerRepository, PhoneRepository phoneRepository, BookRepository bookRepository, BookModelRepository bookModelRepository, MongoOperations mongoOperations) {
         this.mongoTemplate = mongoTemplate;
         this.authorRepository = authorRepository;
         this.userRepository = userRepository;
@@ -33,6 +35,7 @@ public class ActionServiceImpl implements ActionService {
         this.phoneRepository = phoneRepository;
         this.bookRepository = bookRepository;
         this.bookModelRepository = bookModelRepository;
+        this.mongoOperations = mongoOperations;
     }
 
     @Override
@@ -162,6 +165,7 @@ public class ActionServiceImpl implements ActionService {
         Update update = new Update();
         update.set("author_name", "Stefancho");
         mongoTemplate.updateFirst(query, update, Author.class);
+
         Author updated = this.authorRepository.findByNameContaining("Stef");
 
         System.out.println(updated);
@@ -183,8 +187,8 @@ public class ActionServiceImpl implements ActionService {
 
         manufacturers.forEach(m -> {
             count.getAndIncrement();
-            System.out.println(">".repeat(30) +  count + "<".repeat(30));
-            
+            System.out.println(">".repeat(30) + count + "<".repeat(30));
+
             System.out.println(m);
             System.out.println("*".repeat(100));
         });
@@ -192,4 +196,29 @@ public class ActionServiceImpl implements ActionService {
 
     }
 
+    @Override
+    public void findAndRemovePhoneBySizeGreaterThan_MongoTemplate() {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("size").gte(10).and("user").isNull());
+        Phone removed = mongoTemplate.findAndRemove(query, Phone.class);
+
+        if (removed == null) {
+            System.out.println("No match!");
+
+        } else {
+            System.out.println("Successful removed " + removed);
+        }
+    }
+
+    @Override
+    public void findAllBooks_MongoOperations() {
+        List<Book> books = mongoOperations.findAll(Book.class);
+        AtomicInteger count = new AtomicInteger();
+
+        books.forEach(b -> {
+            count.getAndIncrement();
+            System.out.println(">".repeat(30) + count + "<".repeat(30));
+            System.out.println(b);
+        });
+    }
 }

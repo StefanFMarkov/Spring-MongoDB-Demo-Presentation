@@ -103,7 +103,11 @@ public class Init implements CommandLineRunner {
 
 //        this.actionService.findBookModelByModel_OneToManyExample();
 
-        this.actionService.findAllManufacturers();
+//        this.actionService.findAllManufacturers();
+
+//        this.actionService.findAndRemovePhoneBySizeGreaterThan_MongoTemplate();
+
+        this.actionService.findAllBooks_MongoOperations();
     }
 
 }
