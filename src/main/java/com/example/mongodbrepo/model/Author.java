@@ -1,5 +1,6 @@
 package com.example.mongodbrepo.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
@@ -13,9 +14,10 @@ public class Author {
     @MongoId(targetType = FieldType.OBJECT_ID)
     private String id;
     @Field(name = "author_name")
-
     private String name;
+
     private int age;
+
     private List<Book> books;
 
     public Author() {

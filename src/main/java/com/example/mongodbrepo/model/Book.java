@@ -18,10 +18,12 @@ public class Book {
     private String id;
     @NotNull
     private String title;
+
     @Indexed(name = "pages", direction = IndexDirection.DESCENDING)
     @Min(value = 1)
     @Positive
     private int pages;
+
     private BookModel bookModel;
 
     public BookModel getBookModel() {
@@ -63,8 +65,10 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "title='" + title + '\'' +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
                 ", pages=" + pages +
+                ", bookModel=" + bookModel +
                 '}';
     }
 }

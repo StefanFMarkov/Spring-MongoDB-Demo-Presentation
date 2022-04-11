@@ -61,7 +61,9 @@ public class ActionServiceImpl implements ActionService {
     @Override
     public void findUserByNameMongoTemplate() {
         Query query = new Query();
-        query.addCriteria(Criteria.where("name").is("MongoUser1").and("userId").is("6251b8016f576672bfb63b44"));
+        query.addCriteria(Criteria.where("name").is("MongoUser1")
+                .and("userId").is("6251b8016f576672bfb63b44"));
+
         User user = mongoTemplate.findOne(query, User.class);
 
         System.out.println("-".repeat(30));
@@ -120,6 +122,7 @@ public class ActionServiceImpl implements ActionService {
     public void findAllUsersByPagesSize() {
 
         Query query = new Query();
+
         query.addCriteria(Criteria
                         .where("books")
                         .elemMatch(
@@ -163,6 +166,7 @@ public class ActionServiceImpl implements ActionService {
         query.addCriteria(Criteria.where("name").regex("Stef"));
 
         Update update = new Update();
+
         update.set("author_name", "Stefancho");
         mongoTemplate.updateFirst(query, update, Author.class);
 
@@ -176,6 +180,7 @@ public class ActionServiceImpl implements ActionService {
         BookModel digital = this.bookModelRepository.findByModel("hard cover book");
 
         List<Book> books = digital.getBooks();
+
         System.out.println(books);
         System.out.println(digital);
     }
@@ -186,6 +191,7 @@ public class ActionServiceImpl implements ActionService {
         List<Manufacturer> manufacturers = this.manufacturerRepository.findAll();
 
         manufacturers.forEach(m -> {
+
             count.getAndIncrement();
             System.out.println(">".repeat(30) + count + "<".repeat(30));
 
@@ -199,6 +205,7 @@ public class ActionServiceImpl implements ActionService {
     @Override
     public void findAndRemovePhoneBySizeGreaterThan_MongoTemplate() {
         Query query = new Query();
+
         query.addCriteria(Criteria.where("size").gte(10).and("user").isNull());
         Phone removed = mongoTemplate.findAndRemove(query, Phone.class);
 
@@ -212,6 +219,7 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     public void findAllBooks_MongoOperations() {
+
         List<Book> books = mongoOperations.findAll(Book.class);
         AtomicInteger count = new AtomicInteger();
 

@@ -94,7 +94,7 @@ public class Init implements CommandLineRunner {
 //        this.actionService.findManufacturerByCarByUser_Name();
 //        this.actionService.findPhoneByUser();
 
-//        this.actionService.findBookByPagesGreaterThan();
+        this.actionService.findBookByPagesGreaterThan();
 //        this.actionService.findAllUsersByPagesSize();
 //        this.actionService.getComplexUserDetails();
 
@@ -107,7 +107,7 @@ public class Init implements CommandLineRunner {
 
 //        this.actionService.findAndRemovePhoneBySizeGreaterThan_MongoTemplate();
 
-        this.actionService.findAllBooks_MongoOperations();
+//        this.actionService.findAllBooks_MongoOperations();
     }
 
 }

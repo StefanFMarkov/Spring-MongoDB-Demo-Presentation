@@ -15,6 +15,7 @@ public class Car {
     @Field(write = Field.Write.NON_NULL)
     private String model;
     private String color;
+
     @DBRef
     private User user;
 

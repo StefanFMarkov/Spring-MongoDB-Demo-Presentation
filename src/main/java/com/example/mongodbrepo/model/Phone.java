@@ -12,6 +12,7 @@ public class Phone {
     @Field(value = "model",write = Field.Write.NON_NULL)
     private String model;
     private int size;
+
     @DocumentReference
     private User user;
     public Phone() {

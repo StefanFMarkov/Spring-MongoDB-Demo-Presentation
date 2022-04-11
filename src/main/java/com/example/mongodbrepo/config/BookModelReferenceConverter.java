@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DocumentPointer;
 
 @WritingConverter
 public class BookModelReferenceConverter implements Converter<BookModel, DocumentPointer<String>> {
+
     @Override
     public DocumentPointer<String> convert(BookModel source) {
         return source::getId;
